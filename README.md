@@ -25,27 +25,16 @@ A cinematic, single-page launch site for **KALA Watchworks**, a fictional indepe
 
 ## Features
 
-**Preloader: "Winding".** The hands sweep and stop at 12:00 while a crown-winding ring fills with real loading progress (web fonts plus the first rendered frame of the hero scene). The dial then zooms toward the camera and dissolves into the hero. It is skipped instantly when reduced motion is on.
-
-**Hero: a 3D watch modelled in Blender.** It is an original, unbranded model with no stock assets: bevelled hard-surface case and lugs, a coin-edge diver bezel, a fluted crown, faceted dauphine hands and baton indices, and a solid domed sapphire. It also has a padded leather strap with stitching, a moulded rubber strap and a three-piece-link bracelet. The hands show the visitor's real local time. A rim light sweeps the case under a real studio HDRI, the watch tilts toward the pointer, and scrolling turns it 180° to reveal an exhibition caseback with a beating balance wheel and turning gears.
-
-**Release ticker.** An infinite band with a live countdown. It speeds up and skews with scroll velocity.
-
-**The Craft.** A pinned horizontal scroll through five stages, each shown as a studio close-up rendered in Blender: drafting tools on a self-drawing design sheet, a raw case under a coated end mill, hand-finished bridges (Côtes de Genève, polished bevels, perlage) with a pegwood stick and a light sweep, tweezers setting the escape wheel, and the balance and hairspring being regulated. Gold annotations draw in over each render, the layers move at different parallax speeds, and a progress rail tracks the stage. It becomes a vertical timeline on small screens.
-
-**The Collection.** Filter chips re-order the cards with a GSAP Flip animation. Each card shows a studio render of that exact watch, rendered from the same Blender model as the 3D scenes, tilts in 3D with a moving glare, and shows live time: the dial is rendered without hands and live vector hands are drawn over it. A CDK dialog opens a Swiper gallery (dial, caseback, profile renders) and a specs table, and hands the watch to the configurator.
-
-**Movement Explorer.** A Blender-modelled calibre (bevelled wheels and pinions, jewels in chatons, slotted blued screws, chamfered bridges, a skeleton rotor) whose gears turn at true relative speeds: the seconds wheel makes one revolution per minute, and the balance oscillates 4 times a second (28,800 vph) with a stepping escapement. It includes an explode slider (also scroll-linked on first view), orbit controls, projected hotspot buttons, a camera fly-to, a gold highlight pulse, and a parts list synced both ways through one signal.
-
-**Configurator.** A restyled Material stepper next to a live 3D preview that reuses the hero model. Case, dial and strap update the model instantly. The engraving is drawn on the caseback in real time as the watch turns around. The price rolls like an odometer. A certificate card shows a serial number, and a typed reactive form with custom validators ends in a winding animation (crown turns, hands spin to the current time, gold sparks) and a snackbar.
-
-**Precision in Numbers.** An ECharts accuracy line inside a ±2 s/day band, a power-reserve gauge that drains in real time and rewinds on click, and count-up stats.
-
-**Anatomy of a Second.** One second stretched across a pinned scroll. An SVG escapement animates frame by frame through eight labelled ticks, a mono counter runs from `0.000 s` to `1.000 s`, and the big second hand snaps one tick at the end.
-
-**Owner Voices, FAQ, Final CTA, Footer.** Opposing marquees that pause on hover. An accessible single-open CDK accordion. A gold headline with a pointer-following highlight over a 2D gold-dust canvas. A letter-by-letter wordmark, newsletter validation, and a back-to-top clock whose hands rewind.
-
-**Global details.** Lenis smooth scroll synced with ScrollTrigger, a custom tick-bezel cursor (fine pointers only), film grain, technical guide lines that draw in, and magnetic buttons.
+- **Preloader:** a watch face winds up with real loading progress, then dissolves into the hero.
+- **Hero:** a Blender-modelled 3D watch showing your local time; scroll turns it to reveal the movement.
+- **Release ticker:** a live countdown band that speeds up with scroll.
+- **The Craft:** a pinned horizontal scroll through five stages, shown as Blender close-ups.
+- **Collection:** filterable, 3D-tilt cards with studio renders, live hands and a detail gallery.
+- **Movement Explorer:** an explodable 3D calibre with gears turning at true speeds and clickable parts.
+- **Configurator:** a six-step builder with a live 3D preview, caseback engraving and animated price.
+- **Precision in Numbers:** animated accuracy and power-reserve charts, plus count-up stats.
+- **Anatomy of a Second:** one second slowed down across the scroll, tick by tick.
+- **And more:** testimonial marquees, an accessible FAQ, a gold-dust final call to action, smooth scroll and a custom cursor.
 
 ## Tech stack
 

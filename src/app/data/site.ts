@@ -24,7 +24,7 @@ export const BRAND = {
   meaning: '"Kala" means time in Malay.',
   city: 'Kuala Lumpur',
   disclaimer: 'KALA Watchworks is a fictional brand created for a design portfolio.',
-  credit: 'Designed & built by Wan Amirul Amir bin Wan Romzi @ HyTechster',
+  credit: 'Designed & built by Wan Amirul Amir @ HyTechster',
   skipLink: 'Skip to content',
 } as const;
 
