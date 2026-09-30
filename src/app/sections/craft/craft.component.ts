@@ -109,7 +109,7 @@ export class CraftComponent {
         });
 
         panels.forEach((panel) => {
-          panel.querySelectorAll<SVGGElement>('[data-depth]').forEach((layer) => {
+          panel.querySelectorAll<HTMLElement | SVGElement>('[data-depth]').forEach((layer) => {
             const depth = Number(layer.dataset['depth'] ?? 0.5);
             gsap.fromTo(
               layer,
@@ -139,7 +139,7 @@ export class CraftComponent {
         });
       } else {
         panels.forEach((panel, i) => {
-          panel.querySelectorAll<SVGGElement>('[data-depth]').forEach((layer) => {
+          panel.querySelectorAll<HTMLElement | SVGElement>('[data-depth]').forEach((layer) => {
             const depth = Number(layer.dataset['depth'] ?? 0.5);
             gsap.fromTo(
               layer,
@@ -175,7 +175,7 @@ export class CraftComponent {
     this.scroll.requestRefresh();
   }
 
-  /** Design drawing draws itself; the finishing panel gets a light sweep. */
+  /** Drawings and annotation leaders draw themselves; the finishing render gets a light sweep. */
   private panelEffects(
     panel: HTMLElement,
     trigger: { containerAnimation?: gsap.core.Animation; start: string; end: string },
@@ -192,10 +192,11 @@ export class CraftComponent {
     }
     const sweep = panel.querySelector('.sweep');
     if (sweep) {
+      const end = trigger.containerAnimation ? 'right left' : 'bottom top';
       gsap.fromTo(
         sweep,
-        { x: 0 },
-        { x: 820, ease: 'none', scrollTrigger: { trigger: panel, scrub: 1, ...trigger, end: 'right left' } },
+        { xPercent: -100, skewX: -12 },
+        { xPercent: 290, skewX: -12, ease: 'none', scrollTrigger: { trigger: panel, scrub: 1, ...trigger, end } },
       );
     }
   }

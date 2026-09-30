@@ -31,7 +31,7 @@ A cinematic, single-page launch site for **KALA Watchworks**, a fictional indepe
 
 **Release ticker.** An infinite band with a live countdown. It speeds up and skews with scroll velocity.
 
-**The Craft.** A pinned horizontal scroll through five stages, with layered parallax technical drawings, a self-drawing design sheet, a light sweep across Côtes de Genève, and a progress rail. It becomes a vertical timeline on small screens.
+**The Craft.** A pinned horizontal scroll through five stages, each shown as a studio close-up rendered in Blender: drafting tools on a self-drawing design sheet, a raw case under a coated end mill, hand-finished bridges (Côtes de Genève, polished bevels, perlage) with a pegwood stick and a light sweep, tweezers setting the escape wheel, and the balance and hairspring being regulated. Gold annotations draw in over each render, the layers move at different parallax speeds, and a progress rail tracks the stage. It becomes a vertical timeline on small screens.
 
 **The Collection.** Filter chips re-order the cards with a GSAP Flip animation. Each card shows a studio render of that exact watch, rendered from the same Blender model as the 3D scenes, tilts in 3D with a moving glare, and shows live time: the dial is rendered without hands and live vector hands are drawn over it. A CDK dialog opens a Swiper gallery (dial, caseback, profile renders) and a specs table, and hands the watch to the configurator.
 
@@ -116,6 +116,7 @@ art/                     Blender source (kala-watch.blend), CC0 textures, fonts,
                          thumbnail/ (source of docs/thumbnail.jpg)
 public/models/           kala-watch.glb, kala-movement.glb (Draco + WebP)
 public/renders/          collection product renders (WebP)
+public/craft/            Craft section renders (WebP)
 public/env/              studio.hdr (studio lighting)
 public/draco/            Draco decoder
 ```
@@ -155,6 +156,8 @@ To update the models, edit the `.blend`, then export both collections to `art/ex
 npm run models   # Draco geometry + WebP textures into public/models/
 ```
 
+**Craft renders.** The five Craft images in `public/craft/` (1200 × 1000 plus 600 × 500 for phones, about 525 KB in total) come from the `KALA_Craft` scene in the same file, built by the `kala_craft.py` text block. It reuses the watch and movement meshes with close-up finishes of their own: a Côtes de Genève shader (arc-brushed bands with mirror-polished bevels), perlage (overlapping circular grains) and pegwood. It also adds modelled props: a drafting pencil with a knurled grip, a divider, a four-flute coated end mill, swarf and tweezers. To re-render, run `render(shot, f'cam_{shot}', path)` for each shot in `SHOTS`.
+
 **Product renders.** The collection images in `public/renders/` (`{id}-front|back|side.webp`, 800 × 800, about 36 KB each) come from the same file. The `kala_shots.py` text block in the `.blend` configures each of the eight references (case finish, dial, strap, bezel, dial print, caseback engraving) and renders it in Cycles with a transparent background. Each view has its own light rig, and the side view uses an anti-reflective crystal so the dial stays readable at a grazing angle. The front view is rendered without hands. `WatchRenderComponent` draws live hands on top at the render's own scale: the orthographic camera frames 3.3 model units across the image. To re-render, run `shoot(watch, out_dir)` from that script in Blender's Python console, then copy the files into `public/renders/`.
 
 ## Accessibility and motion
@@ -190,7 +193,7 @@ After the first deploy, change `og:image` in `src/index.html` to the full URL (f
 
 ## Credits
 
-Designed & built by Amirul & Afiqah. Fonts: Syne, Inter and JetBrains Mono (Google Fonts). All watches, people and prices are fictional.
+Designed & built by Wan Amirul Amir bin Wan Romzi. Fonts: Syne, Inter and JetBrains Mono (Google Fonts). All watches, people and prices are fictional.
 
 3D assets: watch and movement modelled for this project in Blender. Studio lighting from [Wooden Studio 15](https://polyhaven.com/a/wooden_studio_15) by Alexander Scholten, and leather grain from [Leather Red 02](https://polyhaven.com/a/leather_red_02) by Rob Tuytel, both via Poly Haven (CC0).
 
