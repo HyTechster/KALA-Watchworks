@@ -1,0 +1,71 @@
+<div class="toolbar">
+  <mat-chip-listbox
+    class="filters"
+    [attr.aria-label]="copy.filterLabel"
+    [value]="filter()"
+    (change)="onFilter($event)"
+  >
+    @for (f of filters; track f.id) {
+      <mat-chip-option [value]="f.id" [selected]="f.id === filter()">{{ f.label }}</mat-chip-option>
+    }
+  </mat-chip-listbox>
+  <span class="count t-mono" aria-live="polite">{{ count() }} / {{ watches.length }}</span>
+</div>
+
+<div class="grid" #grid>
+  @for (watch of watches; track watch.id) {
+    <article
+      class="card"
+      [class.is-hidden]="!visibleIds().includes(watch.id)"
+      [class.is-feature]="featureId() === watch.id"
+      [attr.aria-hidden]="!visibleIds().includes(watch.id) ? 'true' : null"
+      [attr.data-flip-id]="watch.id"
+    >
+      <div class="card-shell k-shell k-sweep">
+        <div class="card-core k-core" appTilt3d>
+          <span class="glare" aria-hidden="true"></span>
+          <div class="card-top">
+            <span class="t-label category">{{ categoryName(watch) }}</span>
+            @if (watch.limited) {
+              <span class="badge t-label">{{ watch.edition ?? copy.limitedBadge }}</span>
+            }
+          </div>
+          <div class="face">
+            <app-watch-render
+              [watchId]="watch.id"
+              [variant]="watch.category"
+              [caseMaterial]="watch.caseMaterial"
+            />
+          </div>
+          <div class="card-bottom">
+            <div class="identity">
+              <h3 class="name">
+                <button
+                  type="button"
+                  class="card-link"
+                  [attr.tabindex]="visibleIds().includes(watch.id) ? null : -1"
+                  (click)="open(watch)"
+                >
+                  {{ watch.name }}
+                  <span class="sr-only">, {{ copy.open }}</span>
+                </button>
+              </h3>
+              <p class="tagline">{{ watch.tagline }}</p>
+            </div>
+            <div class="price-row">
+              <span class="t-mono ref">{{ watch.reference }}</span>
+              <span class="t-mono price">{{ formatPrice(watch.price) }}</span>
+              <span class="open-icon" aria-hidden="true">
+                <svg lucideArrowUpRight [size]="16" [strokeWidth]="1.25"></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  }
+</div>
+
+@if (count() === 0) {
+  <p class="empty t-body">{{ copy.empty }}</p>
+}

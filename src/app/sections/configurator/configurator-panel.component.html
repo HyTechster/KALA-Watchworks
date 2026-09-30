@@ -1,0 +1,277 @@
+<div class="panel">
+  <div class="preview-col">
+    <div class="preview-card k-shell">
+      <div class="preview-core k-core">
+        <div class="preview-stage">
+          @defer (on viewport; prefetch on idle) {
+            <app-configurator-preview />
+          } @placeholder {
+            <div class="preview-placeholder k-skeleton" aria-hidden="true"></div>
+          }
+        </div>
+        <p class="sr-only">{{ copy.previewDescription }}</p>
+        <div class="preview-meta">
+          <div class="price">
+            <span class="t-label">{{ copy.priceLabel }}</span>
+            <app-odometer class="price-value" prefix="$" [value]="store.price()" />
+            <span class="price-note">{{ copy.priceNote }}</span>
+          </div>
+          <ul class="summary" [attr.aria-label]="copy.summaryLabel">
+            <li class="t-label">{{ store.modelOption().name }}</li>
+            <li class="t-label">{{ store.caseOption().name }}</li>
+            <li class="t-label">{{ store.dialOption().name }}</li>
+            <li class="t-label">{{ store.strapOption().name }}</li>
+          </ul>
+        </div>
+        <span class="drag-hint t-label" aria-hidden="true">{{ copy.dragHint }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepper-col">
+    <mat-stepper
+      class="stepper"
+      orientation="vertical"
+      [linear]="false"
+      [selectedIndex]="store.step()"
+      (selectionChange)="onStep($event)"
+      animationDuration="600ms"
+    >
+      <!-- Lucide icons instead of Material's icon-font ligatures. -->
+      <ng-template matStepperIcon="edit">
+        <svg lucideCheck [size]="12" [strokeWidth]="2"></svg>
+      </ng-template>
+      <ng-template matStepperIcon="done">
+        <svg lucideCheck [size]="12" [strokeWidth]="2"></svg>
+      </ng-template>
+      <ng-template matStepperIcon="number" let-index="index">{{ index + 1 }}</ng-template>
+
+      <!-- 1. Model -->
+      <mat-step [label]="copy.steps.model">
+        <fieldset class="options options--cards">
+          <legend class="sr-only">{{ copy.modelGroupLabel }}</legend>
+          @for (m of models; track m.id) {
+            <label class="option" [class.is-selected]="store.model() === m.id">
+              <input
+                type="radio"
+                name="kala-model"
+                class="option-input"
+                [value]="m.id"
+                [checked]="store.model() === m.id"
+                (change)="store.model.set(m.id)"
+              />
+              <span class="option-head">
+                <span class="option-name">{{ m.name }}</span>
+                <span class="option-meta t-mono">{{ m.caseSize }}</span>
+              </span>
+              <span class="option-desc">{{ m.description }}</span>
+              <span class="option-price t-mono">${{ m.basePrice.toLocaleString('en-US') }}</span>
+              <span class="option-check" aria-hidden="true"><svg lucideCheck [size]="14" [strokeWidth]="1.5"></svg></span>
+            </label>
+          }
+        </fieldset>
+        <div class="step-actions">
+          <button type="button" appButton size="sm" matStepperNext>{{ copy.next }}</button>
+        </div>
+      </mat-step>
+
+      <!-- 2. Case -->
+      <mat-step [label]="copy.steps.case">
+        <mat-button-toggle-group
+          class="case-toggle"
+          [attr.aria-label]="copy.caseGroupLabel"
+          [value]="store.caseMaterial()"
+          (change)="onCase($event)"
+          [hideSingleSelectionIndicator]="true"
+        >
+          @for (c of cases; track c.id) {
+            <mat-button-toggle [value]="c.id">{{ c.name }}</mat-button-toggle>
+          }
+        </mat-button-toggle-group>
+        <p class="option-note">
+          {{ store.caseOption().description }}
+          @if (store.caseOption().price > 0) {
+            <span class="t-mono gold">+${{ store.caseOption().price.toLocaleString('en-US') }}</span>
+          }
+        </p>
+        <div class="step-actions">
+          <button type="button" appButton size="sm" variant="ghost" icon="none" matStepperPrevious>{{ copy.back }}</button>
+          <button type="button" appButton size="sm" matStepperNext>{{ copy.next }}</button>
+        </div>
+      </mat-step>
+
+      <!-- 3. Dial -->
+      <mat-step [label]="copy.steps.dial">
+        <fieldset class="options options--swatches">
+          <legend class="sr-only">{{ copy.dialGroupLabel }}</legend>
+          @for (d of dials; track d.id) {
+            <label class="swatch" [class.is-selected]="store.dial() === d.id">
+              <input
+                type="radio"
+                name="kala-dial"
+                class="option-input"
+                [value]="d.id"
+                [checked]="store.dial() === d.id"
+                (change)="store.dial.set(d.id)"
+              />
+              <span class="swatch-color" [class.is-meteorite]="d.id === 'meteorite'" [style.--swatch]="d.hex" aria-hidden="true"></span>
+              <span class="swatch-name">{{ d.name }}</span>
+              <span class="swatch-price t-mono">{{ d.price ? '+$' + d.price.toLocaleString('en-US') : '—' }}</span>
+            </label>
+          }
+        </fieldset>
+        <p class="option-note">{{ store.dialOption().description }}</p>
+        <div class="step-actions">
+          <button type="button" appButton size="sm" variant="ghost" icon="none" matStepperPrevious>{{ copy.back }}</button>
+          <button type="button" appButton size="sm" matStepperNext>{{ copy.next }}</button>
+        </div>
+      </mat-step>
+
+      <!-- 4. Strap -->
+      <mat-step [label]="copy.steps.strap">
+        <fieldset class="options options--cards">
+          <legend class="sr-only">{{ copy.strapGroupLabel }}</legend>
+          @for (s of straps; track s.id) {
+            <label class="option" [class.is-selected]="store.strap() === s.id">
+              <input
+                type="radio"
+                name="kala-strap"
+                class="option-input"
+                [value]="s.id"
+                [checked]="store.strap() === s.id"
+                (change)="store.strap.set(s.id)"
+              />
+              <span class="option-head">
+                <span class="option-name">{{ s.name }}</span>
+                <span class="option-meta t-mono">{{ s.price ? '+$' + s.price.toLocaleString('en-US') : '—' }}</span>
+              </span>
+              <span class="option-desc">{{ s.description }}</span>
+              <span class="option-check" aria-hidden="true"><svg lucideCheck [size]="14" [strokeWidth]="1.5"></svg></span>
+            </label>
+          }
+        </fieldset>
+        <div class="step-actions">
+          <button type="button" appButton size="sm" variant="ghost" icon="none" matStepperPrevious>{{ copy.back }}</button>
+          <button type="button" appButton size="sm" matStepperNext>{{ copy.next }}</button>
+        </div>
+      </mat-step>
+
+      <!-- 5. Engraving -->
+      <mat-step [label]="copy.steps.engraving">
+        <div class="field">
+          <label class="field-label t-label" for="kala-engraving">{{ copy.engravingLabel }}</label>
+          <div class="input-shell">
+            <input
+              id="kala-engraving"
+              class="input input--engraving"
+              type="text"
+              autocomplete="off"
+              [attr.maxlength]="engraving.maxLength"
+              [placeholder]="engraving.placeholder"
+              [value]="store.engraving()"
+              (input)="onEngraving($event)"
+              aria-describedby="engraving-hint engraving-count"
+            />
+          </div>
+          <div class="field-foot">
+            <span id="engraving-hint" class="field-hint">{{ engraving.hint }} +${{ engraving.price }}</span>
+            <span id="engraving-count" class="t-mono counter">
+              {{ store.engraving().length }} / {{ engraving.maxLength }}
+              <span class="sr-only">{{ copy.engravingCounterLabel }}</span>
+            </span>
+          </div>
+        </div>
+        <div class="step-actions">
+          <button type="button" appButton size="sm" variant="ghost" icon="none" matStepperPrevious>{{ copy.back }}</button>
+          <button type="button" appButton size="sm" matStepperNext>{{ copy.next }}</button>
+        </div>
+      </mat-step>
+
+      <!-- 6. Summary -->
+      <mat-step [label]="copy.steps.summary">
+        @if (store.step() === 5) {
+          <app-certificate />
+        }
+
+        <div class="register">
+          @if (status() === 'success') {
+            <div class="success" animate.enter="k-enter-rise" role="status">
+              <span class="success-mark" aria-hidden="true"><svg lucideCheck [size]="18" [strokeWidth]="1.5"></svg></span>
+              <h4 class="success-title">{{ copy.successTitle }}</h4>
+              <p class="t-body">{{ copy.successBody }}</p>
+            </div>
+          } @else {
+            <h4 class="register-title">{{ copy.formTitle }}</h4>
+            <p class="t-body register-body">{{ copy.formBody }}</p>
+            <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+              <div class="field">
+                <label class="field-label t-label" for="kala-name">{{ copy.nameLabel }}</label>
+                <div class="input-shell" [class.is-invalid]="error('name')">
+                  <input
+                    id="kala-name"
+                    class="input"
+                    type="text"
+                    autocomplete="name"
+                    formControlName="name"
+                    [attr.aria-invalid]="!!error('name')"
+                    [attr.aria-describedby]="error('name') ? 'kala-name-error' : null"
+                  />
+                </div>
+                @if (error('name'); as message) {
+                  <p id="kala-name-error" class="error" animate.enter="k-enter-rise" animate.leave="k-leave-rise">{{ message }}</p>
+                }
+              </div>
+
+              <div class="field">
+                <label class="field-label t-label" for="kala-email">{{ copy.emailLabel }}</label>
+                <div class="input-shell" [class.is-invalid]="error('email')">
+                  <input
+                    id="kala-email"
+                    class="input"
+                    type="email"
+                    autocomplete="email"
+                    inputmode="email"
+                    formControlName="email"
+                    [attr.aria-invalid]="!!error('email')"
+                    [attr.aria-describedby]="error('email') ? 'kala-email-error' : null"
+                  />
+                </div>
+                @if (error('email'); as message) {
+                  <p id="kala-email-error" class="error" animate.enter="k-enter-rise" animate.leave="k-leave-rise">{{ message }}</p>
+                }
+              </div>
+
+              <div class="field">
+                <label class="field-label t-label" for="kala-size">{{ copy.strapSizeLabel }}</label>
+                <div class="input-shell select-shell" [class.is-invalid]="error('strapSize')">
+                  <select
+                    id="kala-size"
+                    class="input"
+                    formControlName="strapSize"
+                    [attr.aria-invalid]="!!error('strapSize')"
+                    [attr.aria-describedby]="error('strapSize') ? 'kala-size-error' : null"
+                  >
+                    <option value="" disabled>{{ copy.strapSizePlaceholder }}</option>
+                    @for (s of sizes; track s.id) {
+                      <option [value]="s.id">{{ s.label }}</option>
+                    }
+                  </select>
+                </div>
+                @if (error('strapSize'); as message) {
+                  <p id="kala-size-error" class="error" animate.enter="k-enter-rise" animate.leave="k-leave-rise">{{ message }}</p>
+                }
+              </div>
+
+              <div class="form-actions">
+                <button type="button" appButton size="sm" variant="ghost" icon="none" matStepperPrevious>{{ copy.back }}</button>
+                <button type="submit" appButton [attr.aria-disabled]="status() === 'submitting'">
+                  {{ status() === 'submitting' ? copy.submitting : copy.submit }}
+                </button>
+              </div>
+            </form>
+          }
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+/* Map the KALA design tokens into Tailwind utilities (bg-bg, text-gold, font-display…). */
+@theme {
+  --color-bg: #0a0a0b;
+  --color-bg-elev: #141416;
+  --color-graphite: #1e1f22;
+  --color-line: rgb(255 255 255 / 0.1);
+  --color-text: #f2efe9;
+  --color-muted: #a19d96;
+  --color-gold: #c9a96e;
+  --color-gold-light: #e6d3a3;
+  --color-gold-deep: #8c6e3c;
+  --color-steel: #b8bec6;
+  --color-teal: #2e6f6a;
+
+  --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --ease-mech: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --breakpoint-xs: 22.5rem;
+}

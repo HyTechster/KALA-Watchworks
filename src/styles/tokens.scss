@@ -1,0 +1,42 @@
+// KALA design tokens exposed as CSS custom properties.
+:root {
+  --bg: #0a0a0b;
+  --bg-elev: #141416;
+  --graphite: #1e1f22;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f2efe9;
+  // Slightly lifted from #8E8B85 so small muted copy clears WCAG AA on --bg.
+  --text-muted: #a19d96;
+  --gold: #c9a96e;
+  --gold-light: #e6d3a3;
+  --gold-deep: #8c6e3c;
+  --steel: #b8bec6;
+  --teal: #2e6f6a;
+  --gradient-gold: linear-gradient(120deg, #e6d3a3, #c9a96e 45%, #8c6e3c);
+
+  --font-display: 'Syne', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --ease-mech: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-3: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  --radius-shell: 2rem;
+  --radius-core: calc(2rem - 0.375rem);
+
+  --gutter: clamp(1rem, 4vw, 3.5rem);
+  --section-y: clamp(6rem, 14vw, 11rem);
+  --maxw: 88rem;
+
+  // Systemic z-index layers only.
+  --z-base: 1;
+  --z-nav: 40;
+  --z-overlay: 60;
+  --z-cursor: 80;
+  --z-grain: 90;
+  --z-preloader: 100;
+
+  color-scheme: dark;
+}

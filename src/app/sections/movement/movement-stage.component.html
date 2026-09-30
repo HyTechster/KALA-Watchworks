@@ -1,0 +1,54 @@
+<div class="stage k-shell">
+  <div class="stage-core k-core" data-cursor="drag" [attr.data-cursor-label]="copy.orbitLabel">
+    @if (fallback()) {
+      <div class="fallback">
+        <app-svg-watch-view view="caseback" caseMaterial="steel" />
+      </div>
+    } @else {
+      <canvas #canvas class="canvas" aria-hidden="true"></canvas>
+      <div class="hotspots">
+        @for (part of parts; track part.id) {
+          <button
+            #hotspot
+            type="button"
+            class="hotspot"
+            [class.is-active]="selected() === part.id"
+            [attr.aria-pressed]="selected() === part.id"
+            (click)="toggle(part.id)"
+          >
+            <span class="hotspot-dot" aria-hidden="true"></span>
+            <span class="hotspot-label t-label">{{ part.name }}</span>
+          </button>
+        }
+      </div>
+    }
+
+    <div class="controls">
+      <button type="button" class="ctrl" [attr.aria-label]="copy.zoomIn" (click)="zoom(-0.18)">
+        <svg lucidePlus [size]="16" [strokeWidth]="1.25"></svg>
+      </button>
+      <button type="button" class="ctrl" [attr.aria-label]="copy.zoomOut" (click)="zoom(0.18)">
+        <svg lucideMinus [size]="16" [strokeWidth]="1.25"></svg>
+      </button>
+      <button type="button" class="ctrl" [attr.aria-label]="copy.resetView" (click)="reset()">
+        <svg lucideRotateCcw [size]="16" [strokeWidth]="1.25"></svg>
+      </button>
+    </div>
+    <p class="hint t-label" aria-hidden="true">{{ copy.dragHint }}</p>
+  </div>
+</div>
+
+<div class="explode">
+  <div class="explode-head">
+    <span class="t-label" id="explode-label">{{ copy.explodeLabel }}</span>
+    <span class="t-mono value">{{ explodePercent() }}% {{ copy.explodeValue }}</span>
+  </div>
+  <mat-slider class="slider" min="0" max="1" step="0.01" [displayWith]="formatValue">
+    <input
+      matSliderThumb
+      aria-labelledby="explode-label"
+      [value]="explode()"
+      (valueChange)="onSlider($event)"
+    />
+  </mat-slider>
+</div>

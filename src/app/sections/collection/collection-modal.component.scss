@@ -1,0 +1,211 @@
+:host {
+  display: block;
+}
+
+.modal {
+  animation: modal-in 0.8s var(--ease-expo) both;
+}
+
+.modal-core {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(10, 10, 11, 0.6);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    transform 0.6s var(--ease-mech),
+    border-color 0.4s var(--ease-mech);
+
+  &:hover {
+    transform: rotate(90deg);
+    border-color: var(--gold);
+  }
+}
+
+.gallery {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem) 1.25rem;
+  background: radial-gradient(70% 60% at 50% 45%, rgba(46, 111, 106, 0.22), transparent 70%);
+  border-bottom: 1px solid var(--line);
+}
+
+.swiper {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  --swiper-theme-color: var(--gold);
+}
+
+.slide {
+  display: grid;
+  place-items: center;
+  min-height: clamp(16rem, 42vh, 30rem);
+}
+
+.slide-render {
+  width: min(100%, 30rem);
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.6));
+  // The renders crop the strap at the frame edge; let it fade into the panel instead.
+  mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+.gallery-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.nav-btn {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.4s var(--ease-mech);
+
+  &:hover:not(:disabled) {
+    border-color: var(--gold);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.view-label {
+  min-width: 11rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.details {
+  min-width: 0;
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.head {
+  display: grid;
+  gap: 0.9rem;
+  justify-items: start;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+.tagline {
+  margin: 0;
+  font-size: 1.125rem;
+  color: var(--text);
+}
+
+.edition {
+  color: var(--gold-light);
+}
+
+.story {
+  margin: 0;
+}
+
+.specs-title {
+  margin: 0.5rem 0 0;
+  color: var(--gold);
+}
+
+.specs {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.spec {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--line);
+
+  dt {
+    color: var(--text-muted);
+  }
+
+  dd {
+    margin: 0;
+    font-size: 0.8125rem;
+    text-align: right;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  color: var(--gold-light);
+}
+
+@media (min-width: 900px) {
+  .modal-core {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .details {
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal {
+    animation: none;
+  }
+}

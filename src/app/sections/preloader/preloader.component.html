@@ -1,0 +1,37 @@
+@if (visible()) {
+  <div
+    class="preloader"
+    #root
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    [attr.aria-valuenow]="percent()"
+    [attr.aria-label]="copy.status"
+  >
+    <div class="dial-wrap" #dial>
+      <svg class="winding" viewBox="0 0 220 220" aria-hidden="true">
+        <circle class="track" cx="110" cy="110" [attr.r]="ringRadius" />
+        <circle
+          class="fill"
+          cx="110"
+          cy="110"
+          [attr.r]="ringRadius"
+          [attr.stroke-dasharray]="ringLength"
+          [attr.stroke-dashoffset]="dashOffset()"
+        />
+        <g class="crown-ticks">
+          @for (i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; track i) {
+            <line x1="110" y1="4" x2="110" y2="9" [attr.transform]="'rotate(' + i * 30 + ' 110 110)'" />
+          }
+        </g>
+      </svg>
+      <div class="face">
+        <app-svg-watch-face dial="teal" caseMaterial="steel" [angles]="angles()" />
+      </div>
+    </div>
+    <div class="meta">
+      <span class="t-label label">{{ copy.label }}</span>
+      <span class="t-mono pct">{{ percent() }}<span class="unit">%</span></span>
+    </div>
+  </div>
+}

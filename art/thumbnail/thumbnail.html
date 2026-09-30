@@ -1,0 +1,300 @@
+<!doctype html>
+<!--
+  Portfolio thumbnail (16:9). The watch is a Cycles render from art/kala-watch.blend
+  (camera "cam_thumb", hands at 10:09:36), trimmed to its bounds.
+  Screenshot this page at 1920 x 1080 (device scale 2 for the @2x version) to regenerate
+  docs/thumbnail.jpg, docs/thumbnail@2x.jpg and public/og-image.jpg (1200 x 675).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>KALA Thumbnail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" />
+<style>
+  @font-face { font-family: 'Syne'; src: url('../fonts/Syne.ttf') format('truetype'); font-weight: 400 800; }
+  @font-face { font-family: 'JB Mono'; src: url('../fonts/JetBrainsMono.ttf') format('truetype'); font-weight: 100 800; }
+
+  :root {
+    --bg: #0A0A0B;
+    --line: rgba(255, 255, 255, 0.10);
+    --text: #F2EFE9;
+    --muted: #8E8B85;
+    --gold: #C9A96E;
+    --gold-light: #E6D3A3;
+    --teal: #2E6F6A;
+    --gradient-gold: linear-gradient(120deg, #E6D3A3, #C9A96E 45%, #8C6E3C);
+    /* Dial centre of the watch on the canvas */
+    --cx: 1350px;
+    --cy: 540px;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; height: 1080px; background: var(--bg); overflow: hidden; }
+
+  .frame {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background:
+      radial-gradient(640px 560px at var(--cx) var(--cy), rgba(46, 111, 106, 0.42), transparent 70%),
+      radial-gradient(900px 700px at 1500px 620px, rgba(46, 111, 106, 0.16), transparent 70%),
+      radial-gradient(820px 520px at 0px 1080px, rgba(201, 169, 110, 0.14), transparent 70%),
+      linear-gradient(180deg, #0c0c0e 0%, #0A0A0B 60%, #08080a 100%);
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text);
+  }
+
+  /* Technical drawing */
+  .drawing { position: absolute; inset: 0; }
+
+  /* Floor glow under the watch */
+  .floor {
+    position: absolute;
+    left: calc(var(--cx) - 380px);
+    top: 900px;
+    width: 760px;
+    height: 180px;
+    background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent);
+    filter: blur(10px);
+  }
+
+  .watch {
+    position: absolute;
+    /* trimmed render is 973 x 1607; dial centre sits at 41.8% / 44.7% of it */
+    height: 1180px;
+    left: calc(var(--cx) - 1180px * 973 / 1607 * 0.418);
+    top: calc(var(--cy) - 1180px * 0.447);
+    filter:
+      drop-shadow(0 50px 60px rgba(0, 0, 0, 0.7))
+      drop-shadow(0 0 80px rgba(46, 111, 106, 0.25));
+  }
+
+  /* Copy */
+  .brand {
+    position: absolute;
+    left: 120px;
+    top: 104px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .brand svg { width: 34px; height: 34px; }
+  .wordmark {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 0.34em;
+  }
+  .brand .sep { width: 1px; height: 22px; background: var(--line); }
+  .brand .sub {
+    font-family: 'JB Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.32em;
+    color: var(--muted);
+  }
+
+  .copy {
+    position: absolute;
+    left: 120px;
+    top: 330px;
+    width: 960px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 22px;
+    border: 1px solid rgba(201, 169, 110, 0.32);
+    border-radius: 999px;
+    background: rgba(20, 20, 22, 0.6);
+    font-family: 'JB Mono', monospace;
+    font-size: 15px;
+    letter-spacing: 0.26em;
+    color: var(--gold-light);
+  }
+  .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+
+  h1 {
+    margin-top: 38px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 104px;
+    line-height: 1;
+    white-space: nowrap;
+    letter-spacing: -0.035em;
+  }
+  h1 .gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .lede {
+    margin-top: 34px;
+    width: 720px;
+    font-size: 23px;
+    line-height: 1.5;
+    color: #b9b5ae;
+  }
+
+  .stack {
+    position: absolute;
+    left: 120px;
+    bottom: 104px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .stack span {
+    padding: 10px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(20, 20, 22, 0.7);
+    font-family: 'JB Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: var(--text);
+  }
+  .stack span.lead { border-color: rgba(201, 169, 110, 0.45); color: var(--gold-light); }
+
+  .chips {
+    position: absolute;
+    right: 88px;
+    bottom: 104px;
+    display: flex;
+    gap: 12px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(12, 12, 14, 0.72);
+    backdrop-filter: blur(8px);
+    font-family: 'JB Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+  }
+  .chip b { font-weight: 500; color: var(--gold-light); letter-spacing: 0.12em; }
+  .chip i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+
+  .fig {
+    position: absolute;
+    right: 88px;
+    top: 104px;
+    text-align: right;
+    font-family: 'JB Mono', monospace;
+    font-size: 13px;
+    line-height: 1.9;
+    letter-spacing: 0.26em;
+    color: var(--muted);
+  }
+  .fig b { color: var(--gold); font-weight: 500; }
+
+  /* Film grain */
+  .grain { position: absolute; inset: 0; opacity: 0.07; mix-blend-mode: overlay; pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="frame">
+  <svg class="drawing" viewBox="0 0 1920 1080" width="1920" height="1080" aria-hidden="true">
+    <defs>
+      <linearGradient id="fadeX" x1="0" x2="1">
+        <stop offset="0" stop-color="#fff" stop-opacity="0" />
+        <stop offset="0.35" stop-color="#fff" stop-opacity="0.09" />
+        <stop offset="1" stop-color="#fff" stop-opacity="0.04" />
+      </linearGradient>
+    </defs>
+    <!-- Guide grid -->
+    <g stroke="url(#fadeX)" stroke-width="1">
+      <line x1="0" y1="540" x2="1920" y2="540" />
+    </g>
+    <g stroke="rgba(255,255,255,0.07)" stroke-width="1">
+      <line x1="1350" y1="0" x2="1350" y2="1080" />
+      <line x1="1000" y1="0" x2="1000" y2="1080" stroke-dasharray="2 8" />
+    </g>
+    <!-- Concentric bezel rings -->
+    <g fill="none" transform="translate(1350 540)">
+      <circle r="330" stroke="rgba(255,255,255,0.07)" />
+      <circle r="412" stroke="rgba(255,255,255,0.09)" />
+      <circle r="470" stroke="rgba(201,169,110,0.22)" stroke-dasharray="1 5" />
+      <circle r="520" stroke="rgba(255,255,255,0.05)" />
+      <g id="ticks" stroke="rgba(255,255,255,0.18)"></g>
+      <!-- 12 o'clock marker -->
+      <path d="M0 -426 L-6 -438 L6 -438 Z" fill="#C9A96E" stroke="none" />
+      <!-- Diameter dimension -->
+      <g stroke="rgba(201,169,110,0.55)" stroke-width="1">
+        <line x1="-412" y1="430" x2="412" y2="430" />
+        <line x1="-412" y1="422" x2="-412" y2="438" />
+        <line x1="412" y1="422" x2="412" y2="438" />
+      </g>
+    </g>
+    <text x="938" y="952" fill="#C9A96E" font-family="JB Mono" font-size="14" letter-spacing="4">Ø 38.0 MM</text>
+    <!-- Registration corners -->
+    <g stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none">
+      <path d="M48 76 V48 H76" />
+      <path d="M1844 48 H1872 V76" />
+      <path d="M48 1004 V1032 H76" />
+      <path d="M1844 1032 H1872 V1004" />
+    </g>
+  </svg>
+
+  <div class="floor"></div>
+  <img class="watch" src="watch.webp" alt="" />
+
+  <div class="brand">
+    <svg viewBox="0 0 34 34" fill="none" stroke="#C9A96E" stroke-width="1.4">
+      <circle cx="17" cy="17" r="15.5" />
+      <line x1="17" y1="17" x2="17" y2="7" stroke-linecap="round" />
+      <line x1="17" y1="17" x2="23.5" y2="21" stroke-linecap="round" />
+    </svg>
+    <span class="wordmark">KALA</span>
+    <span class="sep"></span>
+    <span class="sub">WATCHWORKS</span>
+  </div>
+
+  <div class="fig">
+    FIG. 01 · <b>K-303 KALA TIGA</b><br />
+    SERIES 03 · 088 PIECES
+  </div>
+
+  <div class="copy">
+    <span class="eyebrow"><i></i>SERIES 03 · HAND-ASSEMBLED IN KUALA LUMPUR</span>
+    <h1>Every second,<br /><span class="gold">made by hand.</span></h1>
+    <p class="lede">A cinematic launch site for a fictional watchmaker: real-time 3D, scroll choreography and a live configurator.</p>
+  </div>
+
+  <div class="stack">
+    <span class="lead">ANGULAR 22</span>
+    <span>THREE.JS</span>
+    <span>BLENDER</span>
+    <span>GSAP</span>
+  </div>
+
+
+  <svg class="grain" width="1920" height="1080" aria-hidden="true">
+    <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
+    <rect width="100%" height="100%" filter="url(#n)" />
+  </svg>
+</div>
+<script>
+  // 60 bezel ticks around the watch, majors every five.
+  const g = document.getElementById('ticks');
+  for (let i = 0; i < 60; i++) {
+    const a = (i / 60) * Math.PI * 2;
+    const major = i % 5 === 0;
+    const r1 = 412, r2 = major ? 400 : 406;
+    const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', Math.sin(a) * r1); l.setAttribute('y1', -Math.cos(a) * r1);
+    l.setAttribute('x2', Math.sin(a) * r2); l.setAttribute('y2', -Math.cos(a) * r2);
+    if (major) l.setAttribute('stroke', 'rgba(201,169,110,0.6)');
+    g.appendChild(l);
+  }
+</script>
+</body>
+</html>

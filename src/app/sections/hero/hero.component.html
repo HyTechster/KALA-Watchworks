@@ -1,0 +1,56 @@
+<section id="top" class="hero" #section aria-labelledby="hero-title" tabindex="-1" [class.is-static]="motion.reduced()">
+  <div class="sticky">
+    <div class="backdrop" aria-hidden="true">
+      <div class="glow glow--teal"></div>
+      <div class="glow glow--gold"></div>
+      <svg class="orbits" viewBox="-500 -500 1000 1000">
+        <circle r="300" />
+        <circle r="420" class="dashed" />
+        <line x1="-490" y1="0" x2="490" y2="0" />
+        <line x1="0" y1="-490" x2="0" y2="490" />
+      </svg>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      @defer (on immediate) {
+        <app-hero-canvas [trigger]="section" />
+      } @placeholder {
+        <div class="stage-fallback">
+          <app-svg-watch-face dial="teal" caseMaterial="steel" [withLugs]="true" />
+        </div>
+      }
+    </div>
+    <p class="sr-only">{{ copy.canvasDescription }}</p>
+
+    <div class="content k-container" #content>
+      <span class="k-eyebrow" data-hero-fade>{{ copy.eyebrow }}</span>
+      <h1 id="hero-title" class="t-hero title" appSplitText trigger="load" [splitDelay]="0.1">
+        @for (line of copy.headlineLines; track line) {
+          <span class="title-line">{{ line }}</span>
+        }
+      </h1>
+      <p class="t-lead sub" data-hero-fade>{{ copy.subline }}</p>
+      <div class="ctas" data-hero-fade>
+        <a appButton appMagnetic href="#collection" (click)="go($event, 'collection')">{{ copy.primaryCta }}</a>
+        <a appButton variant="ghost" icon="down" href="#movement" (click)="go($event, 'movement')">{{
+          copy.secondaryCta
+        }}</a>
+      </div>
+    </div>
+
+    <div class="chips k-container">
+      <app-chip class="chip chip--reserve" data-hero-chip>{{ copy.specReserve }}</app-chip>
+      <app-chip class="chip chip--freq" data-hero-chip>{{ copy.specFrequency }}</app-chip>
+      <app-chip class="chip chip--time" [live]="true" data-hero-chip>
+        {{ copy.specLocalTime }}&nbsp;<span class="time">{{ clock.time() }}</span>
+      </app-chip>
+    </div>
+
+    <p class="caption t-label" #caption aria-hidden="true">{{ copy.casebackCaption }}</p>
+
+    <div class="scroll-cue" data-hero-fade aria-hidden="true">
+      <span class="cue-line"></span>
+      <span class="t-label">{{ copy.scrollCue }}</span>
+    </div>
+  </div>
+</section>

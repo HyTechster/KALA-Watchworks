@@ -1,0 +1,163 @@
+@use '@angular/material' as mat;
+
+// Dark M3 base theme, then re-tuned to the KALA palette via system tokens.
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: mat.$orange-palette,
+        tertiary: mat.$cyan-palette,
+      ),
+      typography: (
+        plain-family: 'Inter',
+        brand-family: 'Syne',
+      ),
+      density: 0,
+    )
+  );
+
+  --mat-sys-primary: #c9a96e;
+  --mat-sys-on-primary: #1a140a;
+  --mat-sys-primary-container: #3a2f1c;
+  --mat-sys-on-primary-container: #f2e3c0;
+  --mat-sys-secondary: #b8bec6;
+  --mat-sys-tertiary: #2e6f6a;
+  --mat-sys-surface: #141416;
+  --mat-sys-surface-container: #18181b;
+  --mat-sys-surface-container-high: #1e1f22;
+  --mat-sys-surface-container-highest: #25262a;
+  --mat-sys-inverse-surface: #f2efe9;
+  --mat-sys-inverse-on-surface: #0a0a0b;
+  --mat-sys-on-surface: #f2efe9;
+  --mat-sys-on-surface-variant: #a19d96;
+  --mat-sys-outline: rgba(255, 255, 255, 0.18);
+  --mat-sys-outline-variant: rgba(255, 255, 255, 0.1);
+  --mat-sys-error: #e08c7a;
+
+  // Stepper
+  --mat-stepper-container-color: transparent;
+  --mat-stepper-line-color: rgba(255, 255, 255, 0.1);
+  --mat-stepper-header-icon-background-color: #1e1f22;
+  --mat-stepper-header-icon-foreground-color: #a19d96;
+  --mat-stepper-header-selected-state-icon-background-color: #c9a96e;
+  --mat-stepper-header-selected-state-icon-foreground-color: #0a0a0b;
+  --mat-stepper-header-done-state-icon-background-color: #3a2f1c;
+  --mat-stepper-header-done-state-icon-foreground-color: #e6d3a3;
+  --mat-stepper-header-edit-state-icon-background-color: #3a2f1c;
+  --mat-stepper-header-edit-state-icon-foreground-color: #e6d3a3;
+  --mat-stepper-header-label-text-color: #a19d96;
+  --mat-stepper-header-selected-state-label-text-color: #f2efe9;
+  --mat-stepper-header-label-text-font: 'Syne', sans-serif;
+  --mat-stepper-header-label-text-size: 1rem;
+  --mat-stepper-header-label-text-weight: 600;
+  --mat-stepper-header-selected-state-label-text-weight: 600;
+  --mat-stepper-header-selected-state-label-text-size: 1rem;
+  --mat-stepper-header-hover-state-layer-color: rgba(201, 169, 110, 0.06);
+  --mat-stepper-header-focus-state-layer-color: rgba(201, 169, 110, 0.1);
+  --mat-stepper-header-hover-state-layer-shape: 1rem;
+  --mat-stepper-header-focus-state-layer-shape: 1rem;
+
+  // Slider
+  --mat-slider-active-track-color: #c9a96e;
+  --mat-slider-inactive-track-color: rgba(255, 255, 255, 0.14);
+  --mat-slider-active-track-height: 2px;
+  --mat-slider-inactive-track-height: 2px;
+  --mat-slider-handle-color: #e6d3a3;
+  --mat-slider-focus-handle-color: #e6d3a3;
+  --mat-slider-hover-handle-color: #e6d3a3;
+  --mat-slider-handle-width: 18px;
+  --mat-slider-handle-height: 18px;
+  --mat-slider-ripple-color: #c9a96e;
+  --mat-slider-hover-state-layer-color: rgba(201, 169, 110, 0.08);
+  --mat-slider-focus-state-layer-color: rgba(201, 169, 110, 0.16);
+  --mat-slider-label-container-color: #c9a96e;
+  --mat-slider-label-label-text-color: #0a0a0b;
+
+  // Chips
+  --mat-chip-container-height: 2.5rem;
+  --mat-chip-container-shape-radius: 999px;
+  --mat-chip-outline-color: rgba(255, 255, 255, 0.12);
+  --mat-chip-outline-width: 1px;
+  --mat-chip-label-text-color: #a19d96;
+  --mat-chip-label-text-font: 'JetBrains Mono', monospace;
+  --mat-chip-label-text-size: 0.75rem;
+  --mat-chip-label-text-tracking: 0.14em;
+  --mat-chip-label-text-weight: 500;
+  --mat-chip-elevated-container-color: transparent;
+  --mat-chip-elevated-selected-container-color: rgba(201, 169, 110, 0.14);
+  --mat-chip-flat-selected-outline-width: 1px;
+  --mat-chip-selected-label-text-color: #e6d3a3;
+  --mat-chip-with-icon-selected-icon-color: #e6d3a3;
+  --mat-chip-hover-state-layer-color: #c9a96e;
+  --mat-chip-selected-hover-state-layer-color: #c9a96e;
+  --mat-chip-focus-state-layer-color: #c9a96e;
+  --mat-chip-selected-focus-state-layer-color: #c9a96e;
+
+  // Button toggle
+  --mat-button-toggle-shape: 999px;
+  --mat-button-toggle-divider-color: rgba(255, 255, 255, 0.1);
+  --mat-button-toggle-text-color: #a19d96;
+  --mat-button-toggle-background-color: transparent;
+  --mat-button-toggle-selected-state-background-color: rgba(201, 169, 110, 0.16);
+  --mat-button-toggle-selected-state-text-color: #e6d3a3;
+  --mat-button-toggle-state-layer-color: #c9a96e;
+  --mat-button-toggle-label-text-font: 'JetBrains Mono', monospace;
+  --mat-button-toggle-label-text-size: 0.75rem;
+  --mat-button-toggle-label-text-tracking: 0.12em;
+  --mat-button-toggle-height: 2.75rem;
+
+  // Snackbar
+  --mat-snack-bar-container-color: #1e1f22;
+  --mat-snack-bar-supporting-text-color: #f2efe9;
+  --mat-snack-bar-button-color: #c9a96e;
+  --mat-snack-bar-container-shape: 1rem;
+  --mat-snack-bar-supporting-text-font: 'Inter', sans-serif;
+
+  // Form field + select (strap size)
+  --mat-form-field-outlined-outline-color: rgba(255, 255, 255, 0.14);
+  --mat-form-field-outlined-hover-outline-color: rgba(201, 169, 110, 0.5);
+  --mat-form-field-outlined-focus-outline-color: #c9a96e;
+  --mat-form-field-outlined-container-shape: 1rem;
+  --mat-select-panel-background-color: #18181b;
+  --mat-option-selected-state-layer-color: rgba(201, 169, 110, 0.14);
+  --mat-option-selected-state-label-text-color: #e6d3a3;
+}
+
+@media (pointer: coarse) {
+  html {
+    --mat-chip-container-height: 2.75rem;
+  }
+}
+
+// Chips and toggles: keep the pill shape crisp and on-brand.
+.mat-mdc-standard-chip.mdc-evolution-chip--selected {
+  border-color: rgba(201, 169, 110, 0.6) !important;
+}
+
+.mat-button-toggle-group-appearance-standard {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.8) !important;
+}
+
+// Vertical stepper tuned to the KALA surfaces.
+.mat-stepper-vertical {
+  background: transparent !important;
+}
+
+.mat-step-header {
+  border-radius: 1rem;
+
+  .mat-step-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+  }
+}
+
+.mat-step-header .mat-step-label {
+  letter-spacing: -0.01em;
+}

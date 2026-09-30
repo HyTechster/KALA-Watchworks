@@ -1,0 +1,204 @@
+:host {
+  display: block;
+}
+
+.stage-core {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  min-height: 22rem;
+  max-height: 78vh;
+  width: 100%;
+  background:
+    radial-gradient(60% 55% at 50% 50%, rgba(46, 111, 106, 0.18), transparent 70%),
+    linear-gradient(180deg, #141416, #0d0d0f);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fallback {
+  position: absolute;
+  inset: 12%;
+}
+
+.hotspots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.hotspot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-mech);
+  will-change: transform;
+  // 13px padding around the 18px dot gives a 44px hit area; the margin keeps it centred.
+  padding: 13px;
+  margin: -22px 0 0 -22px;
+}
+
+.hotspot-dot {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: rgba(10, 10, 11, 0.6);
+  flex: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    animation: ping 2s var(--ease-mech) infinite;
+  }
+}
+
+.hotspot-label {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(10, 10, 11, 0.72);
+  border: 1px solid var(--line);
+  font-size: 0.5625rem;
+  white-space: nowrap;
+  transition:
+    border-color 0.4s var(--ease-mech),
+    color 0.4s var(--ease-mech);
+}
+
+.hotspot:hover .hotspot-label,
+.hotspot.is-active .hotspot-label {
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+.hotspot.is-active .hotspot-dot {
+  background: var(--gold);
+}
+
+.controls {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.ctrl {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(10, 10, 11, 0.6);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.4s var(--ease-mech);
+
+  &:hover {
+    border-color: var(--gold);
+  }
+}
+
+.hint {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.4rem;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.5625rem;
+}
+
+.explode {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 1.5rem;
+  padding-inline: 0.5rem;
+}
+
+.explode-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  .value {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+  }
+}
+
+.slider {
+  width: 100%;
+  margin: 0;
+}
+
+@keyframes ping {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@media (pointer: coarse) {
+  .ctrl {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hint {
+    display: none;
+  }
+
+  // Dots only on small screens; the active part keeps its label.
+  .hotspot-label {
+    display: none;
+  }
+
+  .hotspot.is-active .hotspot-label {
+    display: inline-block;
+  }
+
+  .stage-core {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotspot-dot::after {
+    animation: none;
+  }
+}

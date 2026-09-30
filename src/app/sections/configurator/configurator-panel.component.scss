@@ -1,0 +1,437 @@
+:host {
+  display: block;
+}
+
+.panel {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+// ---------- Preview ----------
+.preview-core {
+  display: grid;
+  background:
+    radial-gradient(70% 55% at 50% 42%, rgba(46, 111, 106, 0.22), transparent 72%),
+    linear-gradient(180deg, #151517, #0e0e10);
+}
+
+.preview-stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  min-height: 20rem;
+  max-height: 64vh;
+  width: 100%;
+}
+
+.preview-placeholder {
+  position: absolute;
+  inset: 1.5rem;
+  border-radius: var(--radius-core);
+}
+
+.preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.price {
+  display: grid;
+  gap: 0.35rem;
+
+  .t-label {
+    color: var(--text-muted);
+  }
+}
+
+.price-value {
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  color: var(--gold-light);
+}
+
+.price-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 0.5625rem;
+    color: var(--text-muted);
+  }
+}
+
+.drag-hint {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.5625rem;
+}
+
+// ---------- Stepper content ----------
+.options {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.option-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.option {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 3rem 1rem 1.1rem;
+  border-radius: 1.1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition:
+    border-color 0.5s var(--ease-mech),
+    background-color 0.5s var(--ease-mech);
+
+  &:hover {
+    border-color: var(--line-strong);
+  }
+
+  &.is-selected {
+    border-color: rgba(201, 169, 110, 0.65);
+    background: rgba(201, 169, 110, 0.07);
+  }
+
+  &:has(.option-input:focus-visible) {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+}
+
+.option-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.option-name {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.option-meta,
+.option-price {
+  font-size: 0.75rem;
+  color: var(--gold-light);
+}
+
+.option-desc {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.option-check {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  color: transparent;
+  transition:
+    background-color 0.4s steps(2, jump-none),
+    color 0.4s var(--ease-mech);
+
+  .is-selected & {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #0a0a0b;
+  }
+}
+
+.options--swatches {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.swatch {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.8rem;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: border-color 0.5s var(--ease-mech);
+
+  &.is-selected {
+    border-color: rgba(201, 169, 110, 0.65);
+    background: rgba(201, 169, 110, 0.06);
+  }
+
+  &:has(.option-input:focus-visible) {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+}
+
+.swatch-color {
+  grid-row: span 2;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.35), transparent 45%),
+    conic-gradient(from 0deg, var(--swatch), color-mix(in srgb, var(--swatch) 70%, #fff) 25%, var(--swatch) 50%, color-mix(in srgb, var(--swatch) 60%, #000) 75%, var(--swatch));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 0 0 3px rgba(10, 10, 11, 1);
+  transition: box-shadow 0.4s var(--ease-mech);
+
+  .is-selected & {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 0 0 3px rgba(10, 10, 11, 1),
+      0 0 0 4px var(--gold);
+  }
+
+  &.is-meteorite {
+    background:
+      repeating-linear-gradient(35deg, rgba(255, 255, 255, 0.18) 0 2px, transparent 2px 6px),
+      repeating-linear-gradient(-55deg, rgba(0, 0, 0, 0.2) 0 1px, transparent 1px 5px),
+      var(--swatch);
+  }
+}
+
+.swatch-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.swatch-price {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+.case-toggle {
+  display: flex;
+  width: 100%;
+
+  ::ng-deep .mat-button-toggle {
+    flex: 1;
+  }
+}
+
+.option-note {
+  margin: 1rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+
+  .gold {
+    color: var(--gold-light);
+    margin-left: 0.4rem;
+  }
+}
+
+.step-actions,
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+// ---------- Fields ----------
+.field {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  color: var(--text-muted);
+}
+
+.input-shell {
+  position: relative;
+  padding: 0.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    border-color 0.5s var(--ease-mech),
+    box-shadow 0.5s var(--ease-mech);
+
+  &:focus-within {
+    border-color: rgba(201, 169, 110, 0.7);
+    box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.1);
+  }
+
+  &.is-invalid {
+    border-color: rgba(224, 140, 122, 0.7);
+    animation: shake 0.4s steps(4) 1;
+  }
+}
+
+.input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.9rem;
+  border: 0;
+  border-radius: 0.8rem;
+  background: rgba(10, 10, 11, 0.6);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  outline: none;
+
+  &::placeholder {
+    color: rgba(161, 157, 150, 0.6);
+  }
+}
+
+.input--engraving {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  letter-spacing: 0.04em;
+}
+
+select.input {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--gold) 50%),
+    linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.2rem) 55%,
+    calc(100% - 0.85rem) 55%;
+  background-size: 0.35rem 0.35rem;
+  background-repeat: no-repeat;
+  background-color: rgba(10, 10, 11, 0.6);
+
+  option {
+    background: #18181b;
+    color: var(--text);
+  }
+}
+
+.field-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.field-hint {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.counter {
+  font-size: 0.75rem;
+  color: var(--gold-light);
+}
+
+.error {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #f0a898;
+}
+
+// ---------- Register ----------
+.register {
+  margin-top: 1.75rem;
+}
+
+.register-title,
+.success-title {
+  font-size: 1.5rem;
+}
+
+.register-body {
+  margin: 0.5rem 0 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.success {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  background: rgba(201, 169, 110, 0.06);
+
+  p {
+    margin: 0;
+  }
+}
+
+.success-mark {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #0a0a0b;
+}
+
+@keyframes shake {
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .panel {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: start;
+  }
+
+  .preview-col {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .options--swatches {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input-shell.is-invalid {
+    animation: none;
+  }
+}

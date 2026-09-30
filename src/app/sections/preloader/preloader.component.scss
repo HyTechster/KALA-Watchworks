@@ -1,0 +1,89 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2.5rem;
+  background:
+    radial-gradient(60% 50% at 50% 45%, rgba(46, 111, 106, 0.18), transparent 70%),
+    var(--bg);
+}
+
+.dial-wrap {
+  position: relative;
+  width: clamp(11rem, 26vw, 16rem);
+  aspect-ratio: 1;
+  will-change: transform, opacity;
+}
+
+.winding {
+  position: absolute;
+  inset: -12%;
+  width: 124%;
+  height: 124%;
+  transform: rotate(-90deg);
+}
+
+.track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+}
+
+.fill {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(201, 169, 110, 0.6));
+}
+
+.crown-ticks line {
+  stroke: rgba(201, 169, 110, 0.45);
+  stroke-width: 1;
+}
+
+.crown-ticks {
+  transform-origin: 110px 110px;
+  animation: wind 3s steps(12) infinite;
+}
+
+.face {
+  position: absolute;
+  inset: 8%;
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+}
+
+.label {
+  color: var(--text-muted);
+}
+
+.pct {
+  font-size: 0.875rem;
+  color: var(--text);
+  min-width: 4ch;
+
+  .unit {
+    color: var(--gold);
+  }
+}
+
+@keyframes wind {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Skip instantly for reduced motion, even before scripts run.
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+}

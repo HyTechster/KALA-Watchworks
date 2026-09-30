@@ -1,0 +1,53 @@
+{
+  "name": "kala",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Wan Amirul Amir bin Wan Romzi",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "preview": "npx serve dist/kala/browser",
+    "models": "gltf-transform optimize art/export/kala-watch.glb public/models/kala-watch.glb --compress draco --texture-compress webp --texture-size 1024 --join false --flatten false --instance false --palette false --simplify false --prune false && gltf-transform optimize art/export/kala-movement.glb public/models/kala-movement.glb --compress draco --texture-compress webp --texture-size 1024 --join false --flatten false --instance false --palette false --simplify false --prune false"
+  },
+  "private": true,
+  "packageManager": "npm@11.6.1",
+  "dependencies": {
+    "@angular/cdk": "^22.2.0",
+    "@angular/common": "^22.2.0",
+    "@angular/compiler": "^22.2.0",
+    "@angular/core": "^22.2.0",
+    "@angular/forms": "^22.2.0",
+    "@angular/material": "^22.2.0",
+    "@angular/platform-browser": "^22.2.0",
+    "@angular/platform-server": "^22.2.0",
+    "@angular/router": "^22.2.0",
+    "@angular/ssr": "^22.2.0",
+    "@lucide/angular": "^1.48.0",
+    "echarts": "^6.1.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "ngx-echarts": "^22.0.0",
+    "rxjs": "~7.8.0",
+    "swiper": "^14.3.0",
+    "three": "^0.186.1",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.2.0",
+    "@angular/cli": "^22.2.0",
+    "@angular/compiler-cli": "^22.2.0",
+    "@gltf-transform/cli": "^4.5.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.12.0",
+    "@types/three": "^0.186.0",
+    "jsdom": "^30.0.0",
+    "postcss": "^8.5.28",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.0"
+  }
+}

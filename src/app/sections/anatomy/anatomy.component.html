@@ -1,0 +1,112 @@
+<section id="anatomy" class="anatomy" #section aria-labelledby="anatomy-title" tabindex="-1">
+  <div class="k-container intro">
+    <app-section-heading headingId="anatomy-title" [eyebrow]="copy.eyebrow" [title]="copy.title" [intro]="copy.intro" />
+  </div>
+
+  <div class="pin" #pin>
+    <div class="stage k-container">
+      <ol class="ticks" [attr.aria-label]="copy.eyebrow">
+        @for (tick of ticks; track tick.index) {
+          <li class="tick" [class.is-done]="tick.index <= done()" [class.is-current]="tick.index === done()">
+            <span class="tick-index t-mono">{{ tick.index < 10 ? '0' + tick.index : tick.index }}</span>
+            <span class="tick-text">
+              <strong class="tick-label">{{ tick.label }}</strong>
+              <span class="tick-detail">{{ tick.detail }}</span>
+            </span>
+          </li>
+        }
+      </ol>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 600" class="diagram-svg" role="img" [attr.aria-label]="copy.diagramDescription">
+          <!-- Measurement lines -->
+          <g class="measures">
+            <path class="measure" [attr.d]="'M ' + (escape.x - 108) + ' 578 H ' + (escape.x + 108)" />
+            <path class="measure" [attr.d]="'M ' + (escape.x - 108) + ' 570 V 586 M ' + (escape.x + 108) + ' 570 V 586'" />
+            <path class="measure" [attr.d]="'M 540 ' + (balance.y - 80) + ' V ' + (balance.y + 80)" />
+            <path class="measure" [attr.d]="'M 532 ' + (balance.y - 80) + ' H 548 M 532 ' + (balance.y + 80) + ' H 548'" />
+            <path class="measure dashed" d="M 40 282 H 560" />
+            <path class="measure dashed" d="M 300 20 V 590" />
+            <path class="measure" d="M 214 240 A 110 110 0 0 1 386 240" />
+          </g>
+          <text [attr.x]="escape.x" y="598" class="measure-label">{{ copy.measureWheel }}</text>
+          <text x="556" [attr.y]="balance.y + 4" class="measure-label start">{{ copy.measureBalance }}</text>
+          <text x="300" y="226" class="measure-label">{{ copy.measureFork }}</text>
+          <text x="48" y="272" class="measure-label start">{{ copy.measureBeat }}</text>
+
+          <!-- Balance wheel -->
+          <g #balanceEl class="balance">
+            <circle [attr.cx]="balance.x" [attr.cy]="balance.y" r="92" class="rim" />
+            <circle [attr.cx]="balance.x" [attr.cy]="balance.y" r="80" class="rim-inner" />
+            @for (a of [0, 60, 120]; track a) {
+              <line
+                [attr.x1]="balance.x - 86"
+                [attr.y1]="balance.y"
+                [attr.x2]="balance.x + 86"
+                [attr.y2]="balance.y"
+                [attr.transform]="'rotate(' + a + ' ' + balance.x + ' ' + balance.y + ')'"
+                class="spoke"
+              />
+            }
+            @for (s of balanceScrews; track $index) {
+              <circle [attr.cx]="s.x" [attr.cy]="s.y" r="5" class="screw" />
+            }
+            <circle [attr.cx]="balance.x" [attr.cy]="balance.y + 34" r="5" class="jewel" />
+          </g>
+          <path [attr.d]="spiral" class="hairspring" />
+
+          <!-- Pallet fork -->
+          <g #forkEl class="fork">
+            <path [attr.d]="forkPath" class="fork-body" />
+            @for (p of pallets; track p.x) {
+              <rect [attr.x]="p.x" [attr.y]="p.y" width="14" height="30" class="pallet" [attr.transform]="p.transform" />
+            }
+            <circle [attr.cx]="pivot.x" [attr.cy]="pivot.y" r="7" class="pivot" />
+          </g>
+
+          <!-- Escape wheel -->
+          <g #escapeEl class="escape">
+            <path [attr.d]="escapePath" [attr.transform]="'translate(' + escape.x + ' ' + escape.y + ')'" fill-rule="evenodd" />
+          </g>
+          <circle [attr.cx]="escape.x" [attr.cy]="escape.y" r="8" class="pivot" />
+
+          <text [attr.x]="escape.x + 124" [attr.y]="escape.y + 4" class="part-label start">{{ copy.escapeWheel }}</text>
+          <text [attr.x]="pivot.x + 88" [attr.y]="pivot.y + 4" class="part-label start">{{ copy.palletFork }}</text>
+          <text [attr.x]="balance.x - 108" [attr.y]="balance.y + 4" class="part-label end">{{ copy.balanceWheel }}</text>
+        </svg>
+
+        <div class="counter">
+          <span class="t-label counter-label">{{ copy.counterLabel }}</span>
+          <span class="counter-value t-mono" #counter aria-hidden="true">0.000 s</span>
+          <span class="sr-only" aria-live="polite">{{ finished() ? copy.secondDone : '' }}</span>
+        </div>
+      </div>
+
+      <div class="dial-col">
+        <div class="dial">
+          <svg viewBox="0 0 400 400" aria-hidden="true">
+            <circle cx="200" cy="200" r="190" class="dial-case" />
+            <circle cx="200" cy="200" r="172" class="dial-face" />
+            <g transform="translate(200 200)">
+              @for (t of dialTicks; track $index) {
+                <line [attr.x1]="t.x1" [attr.y1]="t.y1" [attr.x2]="t.x2" [attr.y2]="t.y2" [class.major]="t.major" class="dial-tick" />
+              }
+            </g>
+            <line x1="200" y1="200" x2="200" y2="90" class="dial-minute" />
+            <g #secondEl class="dial-second">
+              <line x1="200" y1="236" x2="200" y2="44" />
+              <circle cx="200" cy="228" r="7" />
+            </g>
+            <circle cx="200" cy="200" r="8" class="dial-cap" />
+          </svg>
+        </div>
+        <p class="dial-caption" [class.is-visible]="finished()">{{ copy.secondDone }}</p>
+        @if (done() > 0 && current(); as tick) {
+          <p class="current-tick" aria-hidden="true">
+            <span class="t-mono">{{ done() < 10 ? '0' + done() : done() }}/08</span> {{ tick.label }}
+          </p>
+        }
+      </div>
+    </div>
+  </div>
+</section>

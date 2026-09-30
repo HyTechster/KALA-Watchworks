@@ -1,0 +1,276 @@
+:host {
+  display: block;
+}
+
+.hero {
+  position: relative;
+  height: 210vh;
+  outline: none;
+
+  &.is-static {
+    height: auto;
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 36rem;
+  overflow: hidden;
+
+  .is-static & {
+    position: relative;
+  }
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+.glow--teal {
+  width: 60vmax;
+  height: 60vmax;
+  right: -12vmax;
+  top: 50%;
+  transform: translateY(-50%);
+  background: radial-gradient(circle, rgba(46, 111, 106, 0.32), transparent 62%);
+}
+
+.glow--gold {
+  width: 40vmax;
+  height: 40vmax;
+  left: -14vmax;
+  bottom: -18vmax;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.1), transparent 65%);
+}
+
+.orbits {
+  position: absolute;
+  top: 50%;
+  right: clamp(-10rem, -6vw, -2rem);
+  width: min(78vw, 64rem);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+
+  .dashed {
+    stroke-dasharray: 3 7;
+  }
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+}
+
+.stage-fallback {
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  width: min(34vw, 30rem);
+  transform: translateY(-50%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.75rem;
+  height: 100%;
+  padding-top: 5rem;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.title {
+  max-width: 11ch;
+  text-wrap: balance;
+
+  .title-line {
+    display: block;
+  }
+}
+
+.sub {
+  max-width: 34ch;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.chips {
+  position: absolute;
+  inset: auto 0 clamp(1.25rem, 3vw, 2rem);
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.chip--time {
+  .time {
+    color: var(--gold-light);
+  }
+}
+
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  z-index: 1;
+  margin: 0;
+  transform: translateX(-50%);
+  color: var(--gold);
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.is-static .scroll-cue,
+.is-static .caption {
+  display: none !important;
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(5.5rem, 12vh, 7rem);
+  z-index: 1;
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  transform: translateX(-50%);
+  color: var(--text-muted);
+
+  .cue-line {
+    position: relative;
+    width: 1px;
+    height: 2.5rem;
+    overflow: hidden;
+    background: var(--line);
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1px;
+      height: 40%;
+      background: var(--gold);
+      animation: cue 2.4s var(--ease-mech) infinite;
+    }
+  }
+}
+
+@keyframes cue {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(260%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .chips {
+    display: block;
+  }
+
+  .chip {
+    position: absolute;
+  }
+
+  .chip--reserve {
+    left: var(--gutter);
+    bottom: 0;
+  }
+
+  .chip--freq {
+    right: var(--gutter);
+    bottom: 0;
+  }
+
+  .chip--time {
+    right: var(--gutter);
+    bottom: calc(100dvh - 11rem);
+  }
+
+  .scroll-cue {
+    display: flex;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .content {
+    justify-content: flex-end;
+    gap: 1.25rem;
+    padding-bottom: 5.25rem;
+  }
+
+  .stage-fallback {
+    right: 50%;
+    top: 26%;
+    width: min(46vw, 15rem);
+    transform: translate(50%, -50%);
+  }
+
+  .orbits {
+    right: 50%;
+    top: 26%;
+    width: 130vw;
+    transform: translate(50%, -50%);
+  }
+
+  .glow--teal {
+    right: -30vmax;
+    top: 30%;
+  }
+
+  .chip--reserve,
+  .chip--freq {
+    display: none;
+  }
+
+  .caption {
+    bottom: auto;
+    top: 50%;
+    white-space: normal;
+    width: calc(100% - 2 * var(--gutter));
+    text-align: center;
+  }
+}
+
+@media (max-width: 1023.98px) and (max-height: 700px) {
+  .title {
+    font-size: clamp(2.4rem, 11vw, 3.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue .cue-line::after {
+    animation: none;
+  }
+}

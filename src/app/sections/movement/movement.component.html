@@ -1,0 +1,65 @@
+<section id="movement" class="k-section movement" aria-labelledby="movement-title" tabindex="-1">
+  <div class="k-container layout">
+    <div class="heading">
+      <app-section-heading
+        headingId="movement-title"
+        align="start"
+        [eyebrow]="copy.eyebrow"
+        [title]="copy.title"
+        [intro]="copy.intro"
+      />
+    </div>
+
+    <div class="side">
+
+      <h3 class="t-label parts-title" id="parts-title">{{ copy.partsLabel }}</h3>
+      <ul class="parts" aria-labelledby="parts-title" appReveal="children">
+        @for (part of parts; track part.id; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="part"
+              [class.is-active]="selected() === part.id"
+              [attr.aria-pressed]="selected() === part.id"
+              (click)="toggle(part.id)"
+            >
+              <span class="part-index t-mono">0{{ i + 1 }}</span>
+              <span class="part-name">{{ part.name }}</span>
+              <span class="part-short">{{ part.short }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+
+      <div class="info-slot" aria-live="polite">
+        @if (selectedPart(); as part) {
+          <aside class="info k-shell" animate.enter="info-enter" animate.leave="info-leave" [attr.aria-label]="part.name">
+            <div class="info-core k-core">
+              <button type="button" class="info-close" [attr.aria-label]="copy.infoClose" (click)="clear()">
+                <svg lucideX [size]="16" [strokeWidth]="1.25"></svg>
+              </button>
+              <span class="k-eyebrow">{{ copy.liveLabel }}</span>
+              <h4 class="info-title">{{ part.name }}</h4>
+              <p class="t-body info-body">{{ part.description }}</p>
+              <div class="info-stat">
+                <span class="t-mono stat-value">{{ part.statValue }}</span>
+                <span class="t-label">{{ part.statLabel }}</span>
+              </div>
+            </div>
+          </aside>
+        } @else {
+          <p class="t-body hint">{{ copy.selectHint }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="main">
+      <p class="sr-only">{{ copy.canvasDescription }}</p>
+      @defer (on viewport; prefetch on idle) {
+        <app-movement-stage [(selected)]="selected" [(explode)]="explode" />
+      } @placeholder {
+        <div class="stage-placeholder k-skeleton" aria-hidden="true"></div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,243 @@
+:host {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+
+  &.is-hidden {
+    display: none;
+  }
+}
+
+.card-shell {
+  height: 100%;
+}
+
+.card-core {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: 100%;
+  padding: 1.5rem;
+  background:
+    radial-gradient(90% 60% at 50% 40%, rgba(46, 111, 106, 0.1), transparent 70%),
+    linear-gradient(180deg, #17171a 0%, #101012 100%);
+  will-change: transform;
+}
+
+.glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--glare-o, 0);
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 246, 223, 0.16),
+    transparent 45%
+  );
+  transition: opacity 0.6s var(--ease-mech);
+  z-index: 2;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.category {
+  color: var(--text-muted);
+}
+
+.badge {
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  color: var(--gold-light);
+  font-size: 0.5625rem;
+}
+
+.face {
+  width: min(92%, 19rem);
+  margin: -0.5rem auto -1rem;
+  // The renders crop the strap at the frame edge; let it fade into the card instead.
+  mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  filter: drop-shadow(0 28px 30px rgba(0, 0, 0, 0.55));
+  transform: translateZ(40px);
+  transition: transform 0.8s var(--ease-mech);
+}
+
+.card:hover .face {
+  transform: translateZ(40px) scale(1.03);
+}
+
+.card-bottom {
+  display: grid;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.name {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.card-link {
+  all: unset;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: var(--radius-core);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::after {
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+}
+
+.tagline {
+  margin: 0.4rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.ref {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+.price {
+  margin-left: auto;
+  font-size: 0.875rem;
+  color: var(--gold-light);
+}
+
+.open-icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gold);
+  transition: transform 0.6s var(--ease-mech);
+}
+
+.card:hover .open-icon {
+  transform: translate(3px, -2px) scale(1.06);
+}
+
+.empty {
+  margin-top: 2rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card.is-feature {
+    grid-column: span 2;
+
+    .card-core {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .card-top {
+      width: 100%;
+    }
+
+    .face {
+      width: min(50%, 24rem);
+    }
+
+    .card-bottom {
+      flex: 1;
+      min-width: 14rem;
+    }
+
+    .name {
+      font-size: clamp(2rem, 3.4vw, 3rem);
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .card.is-feature {
+    grid-row: span 2;
+
+    .card-core {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: stretch;
+    }
+
+    .face {
+      width: min(100%, 28rem);
+      margin-block: auto;
+    }
+
+    .card-bottom {
+      flex: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face,
+  .open-icon,
+  .glare {
+    transition: none;
+  }
+}

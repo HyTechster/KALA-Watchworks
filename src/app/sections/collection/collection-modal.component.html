@@ -1,0 +1,66 @@
+<div class="modal k-shell">
+  <div class="modal-core k-core">
+    <button type="button" class="close" [attr.aria-label]="copy.close" (click)="close()">
+      <svg lucideX [size]="18" [strokeWidth]="1.25"></svg>
+    </button>
+
+    <div class="gallery" data-cursor="drag" [attr.data-cursor-label]="copy.dragLabel" [attr.aria-label]="copy.galleryLabel" role="region">
+      <swiper-container #swiper init="false" class="swiper">
+        @for (view of views; track view; let i = $index) {
+          <swiper-slide>
+            <div class="slide">
+              <app-watch-render
+                class="slide-render"
+                [watchId]="watch.id"
+                [view]="view"
+                [variant]="watch.category"
+                [caseMaterial]="watch.caseMaterial"
+                [alt]="watch.name + ', ' + copy.galleryAlts[i]"
+                [eager]="i === 0"
+              />
+            </div>
+          </swiper-slide>
+        }
+      </swiper-container>
+
+      <div class="gallery-nav">
+        <button type="button" class="nav-btn" (click)="prev()" [disabled]="slide() === 0" [attr.aria-label]="copy.prevView">
+          <svg lucideChevronLeft [size]="18" [strokeWidth]="1.25"></svg>
+        </button>
+        <span class="t-label view-label" aria-live="polite">
+          {{ copy.galleryViews[slide()] }} · 0{{ slide() + 1 }} / 03
+        </span>
+        <button type="button" class="nav-btn" (click)="next()" [disabled]="slide() === 2" [attr.aria-label]="copy.nextView">
+          <svg lucideChevronRight [size]="18" [strokeWidth]="1.25"></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="details">
+      <div class="head">
+        <span class="k-eyebrow">{{ categoryName }} · {{ watch.reference }}</span>
+        <h2 id="modal-title" class="title">{{ watch.name }}</h2>
+        <p class="tagline">{{ watch.tagline }}</p>
+        @if (watch.limited) {
+          <span class="edition t-label">{{ watch.edition }}</span>
+        }
+      </div>
+      <p class="t-body story">{{ watch.story }}</p>
+
+      <h3 class="t-label specs-title">{{ copy.specsTitle }}</h3>
+      <dl class="specs">
+        @for (spec of specs; track spec.label) {
+          <div class="spec">
+            <dt class="t-label">{{ spec.label }}</dt>
+            <dd class="t-mono">{{ spec.value }}</dd>
+          </div>
+        }
+      </dl>
+
+      <div class="actions">
+        <span class="price t-mono">{{ priceLabel }}</span>
+        <button type="button" appButton (click)="configure()">{{ copy.configure }}</button>
+      </div>
+    </div>
+  </div>
+</div>

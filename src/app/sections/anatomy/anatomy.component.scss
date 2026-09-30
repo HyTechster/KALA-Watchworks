@@ -1,0 +1,334 @@
+:host {
+  display: block;
+}
+
+.anatomy {
+  position: relative;
+  padding-top: var(--section-y);
+  outline: none;
+}
+
+.pin {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding-block: 5.5rem 2rem;
+  background:
+    radial-gradient(50% 60% at 50% 55%, rgba(46, 111, 106, 0.14), transparent 70%),
+    var(--bg);
+}
+
+.stage {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+// ---------- Tick list ----------
+.ticks {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.tick {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+  opacity: 0.35;
+  transition: opacity 0.3s steps(2, jump-none);
+
+  &.is-done {
+    opacity: 0.75;
+  }
+
+  &.is-current {
+    opacity: 1;
+
+    .tick-index,
+    .tick-label {
+      color: var(--gold-light);
+    }
+  }
+}
+
+.tick-index {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding-top: 0.15rem;
+}
+
+.tick-text {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.tick-label {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.tick-detail {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+// ---------- Diagram ----------
+.diagram {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.diagram-svg {
+  width: min(100%, 34rem);
+  height: auto;
+  overflow: visible;
+}
+
+.measure {
+  fill: none;
+  stroke: rgba(201, 169, 110, 0.55);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+
+  &.dashed {
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-dasharray: 3 6;
+  }
+}
+
+.measure-label,
+.part-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  fill: var(--gold);
+  text-anchor: middle;
+
+  &.start {
+    text-anchor: start;
+  }
+
+  &.end {
+    text-anchor: end;
+  }
+}
+
+.part-label {
+  fill: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.rim {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 7;
+}
+
+.rim-inner {
+  fill: none;
+  stroke: rgba(201, 169, 110, 0.4);
+  stroke-width: 1;
+}
+
+.spoke {
+  stroke: rgba(201, 169, 110, 0.85);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.screw {
+  fill: var(--gold-light);
+}
+
+.jewel {
+  fill: #c0162e;
+}
+
+.hairspring {
+  fill: none;
+  stroke: rgba(80, 120, 200, 0.7);
+  stroke-width: 1;
+}
+
+.fork-body {
+  fill: #2a2c30;
+  stroke: var(--steel);
+  stroke-width: 1.2;
+}
+
+.pallet {
+  fill: #c0162e;
+}
+
+.pivot {
+  fill: var(--bg);
+  stroke: var(--gold);
+  stroke-width: 2;
+}
+
+.escape path {
+  fill: rgba(184, 190, 198, 0.16);
+  stroke: var(--steel);
+  stroke-width: 1.2;
+}
+
+.counter {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  margin-top: 1.25rem;
+}
+
+.counter-label {
+  color: var(--text-muted);
+}
+
+.counter-value {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  line-height: 1;
+}
+
+// ---------- Big dial ----------
+.dial-col {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.dial {
+  width: min(56vw, 16rem);
+}
+
+.dial svg {
+  width: 100%;
+  height: auto;
+}
+
+.dial-case {
+  fill: #1a1b1e;
+  stroke: rgba(255, 255, 255, 0.15);
+}
+
+.dial-face {
+  fill: #10302d;
+}
+
+.dial-tick {
+  stroke: rgba(242, 239, 233, 0.45);
+  stroke-width: 1;
+
+  &.major {
+    stroke: var(--text);
+    stroke-width: 3;
+  }
+}
+
+.dial-minute {
+  stroke: var(--steel);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.dial-second {
+  stroke: var(--gold);
+  fill: var(--gold);
+  stroke-width: 2;
+}
+
+.dial-cap {
+  fill: var(--gold);
+}
+
+.dial-caption {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.5s var(--ease-mech),
+    transform 0.5s var(--ease-mech);
+
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.current-tick {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+
+  .t-mono {
+    color: var(--gold);
+    margin-right: 0.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .stage {
+    grid-template-columns: minmax(15rem, 0.8fr) 1.6fr minmax(14rem, 0.8fr);
+  }
+
+  .ticks {
+    display: block;
+  }
+
+  .current-tick {
+    display: none;
+  }
+
+  .dial {
+    width: 100%;
+    max-width: 16rem;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .diagram-svg {
+    width: min(100%, 26rem);
+  }
+
+  .stage {
+    gap: 1rem;
+  }
+
+  .dial {
+    width: 7rem;
+    grid-row: span 2;
+  }
+
+  .dial-col {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: start;
+  }
+
+  .dial-caption {
+    font-size: 1.125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dial-caption,
+  .tick {
+    transition: none;
+  }
+}

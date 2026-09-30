@@ -1,0 +1,42 @@
+<section id="craft" class="craft" #section aria-labelledby="craft-title" tabindex="-1" [class.is-horizontal]="horizontal()">
+  <div class="k-container intro">
+    <app-section-heading headingId="craft-title" [eyebrow]="copy.eyebrow" [title]="copy.title" [intro]="copy.intro" />
+  </div>
+
+  <div class="pin" #pin>
+    <app-guide-lines layout="grid" />
+    <div class="rail k-container" aria-hidden="true">
+      <div class="rail-line"><span class="rail-fill" #railFill></span></div>
+      <ol class="rail-nodes">
+        @for (panel of panels; track panel.id; let i = $index) {
+          <li class="node" [class.is-active]="i <= activeIndex()" [class.is-current]="i === activeIndex()">
+            <span class="node-dot"></span>
+            <span class="node-label t-label">{{ panel.title }}</span>
+          </li>
+        }
+      </ol>
+    </div>
+
+    <div class="track" #track>
+      @for (panel of panels; track panel.id; let i = $index) {
+        <article class="panel" [attr.aria-labelledby]="'craft-' + panel.id" [class.is-current]="i === activeIndex()">
+          <div class="panel-inner">
+            <div class="art">
+              <app-craft-illustration [kind]="panel.id" />
+            </div>
+            <div class="copy">
+              <span class="index t-mono">{{ panel.index }} <span class="of">/ 05</span></span>
+              <p class="kicker t-label">{{ panel.kicker }}</p>
+              <h3 class="panel-title" [id]="'craft-' + panel.id">{{ panel.title }}</h3>
+              <p class="t-body body">{{ panel.body }}</p>
+              <div class="stat">
+                <span class="stat-value t-mono">{{ panel.statValue }}</span>
+                <span class="stat-label t-label">{{ panel.statLabel }}</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

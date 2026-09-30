@@ -1,0 +1,101 @@
+<footer class="footer">
+  <div class="k-container top">
+    <div class="intro">
+      <p class="tagline">{{ copy.tagline }}</p>
+      <div class="newsletter">
+        <h2 class="t-label news-title" id="newsletter-title">{{ copy.newsletterTitle }}</h2>
+        <p class="news-body">{{ copy.newsletterBody }}</p>
+        @if (submitted()) {
+          <p class="news-success" role="status" animate.enter="k-enter-rise">{{ copy.newsletterSuccess }}</p>
+        } @else {
+          <form class="news-form" (ngSubmit)="subscribe()" novalidate aria-labelledby="newsletter-title">
+            <label class="sr-only" for="newsletter-email">{{ copy.newsletterLabel }}</label>
+            <div class="news-shell" [class.is-invalid]="emailError()">
+              <input
+                id="newsletter-email"
+                class="news-input"
+                type="email"
+                autocomplete="email"
+                inputmode="email"
+                [placeholder]="copy.newsletterPlaceholder"
+                [formControl]="email"
+                [attr.aria-invalid]="!!emailError()"
+                [attr.aria-describedby]="emailError() ? 'newsletter-error' : null"
+              />
+              <button type="submit" class="news-submit" [attr.aria-label]="copy.newsletterSubmit">
+                <svg lucideArrowRight [size]="18" [strokeWidth]="1.25"></svg>
+              </button>
+            </div>
+            @if (emailError(); as message) {
+              <p id="newsletter-error" class="news-error" animate.enter="k-enter-rise" animate.leave="k-leave-rise">{{ message }}</p>
+            }
+          </form>
+        }
+      </div>
+    </div>
+
+    <nav class="columns" [attr.aria-label]="copy.navLabel">
+      @for (col of copy.columns; track col.title) {
+        <div class="column">
+          <h2 class="t-label col-title">{{ col.title }}</h2>
+          <ul>
+            @for (link of col.links; track link.label) {
+              <li><a class="col-link" [href]="link.href">{{ link.label }}</a></li>
+            }
+          </ul>
+        </div>
+      }
+    </nav>
+  </div>
+
+  <div class="k-container bar">
+    <ul class="socials">
+      @for (s of copy.socials; track s.label) {
+        <li>
+          <a class="social" [href]="s.href" [attr.aria-label]="s.label" target="_blank" rel="noopener noreferrer">
+            @switch (s.icon) {
+              @case ('camera') {
+                <svg lucideCamera [size]="18" [strokeWidth]="1.25"></svg>
+              }
+              @case ('film') {
+                <svg lucideClapperboard [size]="18" [strokeWidth]="1.25"></svg>
+              }
+              @case ('mail') {
+                <svg lucideMail [size]="18" [strokeWidth]="1.25"></svg>
+              }
+              @case ('rss') {
+                <svg lucideRss [size]="18" [strokeWidth]="1.25"></svg>
+              }
+            }
+          </a>
+        </li>
+      }
+    </ul>
+
+    <button type="button" class="top-btn" (click)="backToTop()">
+      <svg class="top-clock" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <g #hands>
+          <line x1="12" y1="12" x2="12" y2="5.5" />
+          <line x1="12" y1="12" x2="16" y2="12" />
+        </g>
+      </svg>
+      <span>{{ copy.backToTop }}</span>
+    </button>
+  </div>
+
+  <div class="wordmark" #wordmark aria-hidden="true">
+    @for (l of letters; track $index) {
+      <span class="letter">{{ l }}</span>
+    }
+  </div>
+
+  <div class="k-container legal">
+    <p class="disclaimer">{{ brand.disclaimer }}</p>
+    <p class="meta">
+      <span>{{ copy.copyright }}</span>
+      <span class="t-mono">{{ copy.location }}</span>
+      <span>{{ brand.credit }}</span>
+    </p>
+  </div>
+</footer>

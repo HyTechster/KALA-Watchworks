@@ -1,0 +1,84 @@
+<header class="nav-wrap" [class.is-hidden]="hidden()">
+  <nav class="pill" [attr.aria-label]="nav.label">
+    <a class="brand" href="#top" (click)="go($event, 'top')">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">{{ brand.name }}</span>
+      <span class="sr-only">{{ brand.full }}</span>
+    </a>
+
+    <ul class="links" #list>
+      @for (link of nav.links; track link.id) {
+        <li>
+          <a
+            #link
+            class="link"
+            [href]="'#' + link.id"
+            [class.is-active]="active() === link.id"
+            [attr.aria-current]="active() === link.id ? 'location' : null"
+            (click)="go($event, link.id)"
+            >{{ link.label }}</a
+          >
+        </li>
+      }
+      <li
+        class="indicator"
+        aria-hidden="true"
+        [class.is-visible]="indicator().visible"
+        [style.transform]="'translateX(' + indicator().x + 'px) scaleX(' + indicator().width / 100 + ')'"
+      ></li>
+    </ul>
+
+    <span class="time t-mono">
+      <span class="time-dot" aria-hidden="true"></span>
+      <span class="sr-only">{{ nav.timeLabel }}</span>
+      <span>{{ clock.shortTime() }}<span class="time-sec" aria-hidden="true">:{{ seconds() }}</span></span>
+    </span>
+
+    <a appButton appMagnetic size="sm" class="reserve" href="#configurator" (click)="go($event, 'configurator')">
+      {{ nav.reserve }}
+    </a>
+
+    <button
+      #burger
+      type="button"
+      class="burger"
+      [class.is-open]="menuOpen()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="mobile-menu"
+      [attr.aria-label]="menuOpen() ? nav.closeMenu : nav.openMenu"
+      (click)="toggleMenu()"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </nav>
+</header>
+
+@if (menuOpen()) {
+  <div
+    id="mobile-menu"
+    class="menu"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="nav.menuTitle"
+    cdkTrapFocus
+    [cdkTrapFocusAutoCapture]="true"
+    animate.enter="menu-enter"
+    animate.leave="menu-leave"
+  >
+    <ul class="menu-links">
+      @for (link of nav.links; track link.id; let i = $index) {
+        <li [style.--i]="i">
+          <a class="menu-link" [href]="'#' + link.id" (click)="go($event, link.id)">
+            <span class="menu-index t-mono">0{{ i + 1 }}</span>
+            <span class="menu-label">{{ link.label }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+    <div class="menu-footer" [style.--i]="nav.links.length">
+      <span class="t-label">{{ nav.menuFooter }}</span>
+      <a appButton href="#configurator" (click)="go($event, 'configurator')">{{ nav.reserve }}</a>
+    </div>
+  </div>
+}
