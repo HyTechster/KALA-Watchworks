@@ -13,7 +13,7 @@ A cinematic, single-page launch site for **KALA Watchworks**, a fictional indepe
 
 > KALA Watchworks is a fictional brand created for a design portfolio. Every name, price and owner quote is invented.
 
-**Live site:** add the deployed URL here after publishing (see [Deploy](#deploy)).
+**Live site:** https://kala.hytechster.com
 
 ![Hero: the Blender-modelled watch shows your local time](docs/screenshots/hero.png)
 
