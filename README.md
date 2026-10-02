@@ -171,6 +171,7 @@ Unit tests cover the `ConfiguratorStore` price logic (including every collection
 
 The build output in `dist/kala/browser` is plain static files. You can publish it to any static host:
 
+- **Cloudflare Workers:** `npm run deploy` builds the site and uploads it with Wrangler, using `wrangler.jsonc` (worker name `kala-watchworks`). Cache headers live in `public/_headers`.
 - **Vercel / Netlify:** build command `npm run build`, output directory `dist/kala/browser`.
 - **GitHub Pages:** build with `npx ng build --base-href /<repo-name>/`, then publish `dist/kala/browser`.
 

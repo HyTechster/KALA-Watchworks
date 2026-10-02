@@ -76,3 +76,6 @@ testem.log
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Cloudflare Wrangler local state
+.wrangler/

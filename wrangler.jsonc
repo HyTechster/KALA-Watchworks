@@ -1,0 +1,12 @@
+{
+  // Cloudflare Workers: serves the prerendered static build as assets (no Worker script).
+  // Deploy with `npm run deploy` (builds, then runs `wrangler deploy`).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kala-watchworks",
+  "compatibility_date": "2026-10-03",
+  "assets": {
+    "directory": "./dist/kala/browser",
+    // One-page site: unknown paths fall back to the homepage.
+    "not_found_handling": "single-page-application"
+  }
+}
