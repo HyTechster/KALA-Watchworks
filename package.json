@@ -14,7 +14,6 @@
     "models": "gltf-transform optimize art/export/kala-watch.glb public/models/kala-watch.glb --compress draco --texture-compress webp --texture-size 1024 --join false --flatten false --instance false --palette false --simplify false --prune false && gltf-transform optimize art/export/kala-movement.glb public/models/kala-movement.glb --compress draco --texture-compress webp --texture-size 1024 --join false --flatten false --instance false --palette false --simplify false --prune false"
   },
   "private": true,
-  "packageManager": "npm@11.6.1",
   "dependencies": {
     "@angular/cdk": "^22.2.0",
     "@angular/common": "^22.2.0",
