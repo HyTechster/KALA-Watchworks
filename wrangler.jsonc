@@ -4,6 +4,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "kala-watchworks",
   "compatibility_date": "2026-10-03",
+  "observability": {
+    "enabled": true
+  },
   "assets": {
     "directory": "./dist/kala/browser",
     // One-page site: unknown paths fall back to the homepage.
